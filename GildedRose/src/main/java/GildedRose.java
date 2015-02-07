@@ -3,12 +3,12 @@ import java.util.List;
 
 public class GildedRose {
 
-	private static final String CONJURED_MANA_CAKE = "Conjured Mana Cake";
-	private static final String ELIXIR_OF_THE_MONGOOSE = "Elixir of the Mongoose";
-	private static final String VEST = "+5 Dexterity Vest";
-	private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
-	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
-	private static final String AGED_BRIE = "Aged Brie";
+	static final String CONJURED_MANA_CAKE = "Conjured Mana Cake";
+	static final String ELIXIR_OF_THE_MONGOOSE = "Elixir of the Mongoose";
+	static final String VEST = "+5 Dexterity Vest";
+	static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+	static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+	static final String AGED_BRIE = "Aged Brie";
 
 	private static List<Item> items = null;
 
