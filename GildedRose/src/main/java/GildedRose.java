@@ -26,50 +26,44 @@ public class GildedRose {
 		}
 	}
 
-	public static void updateQuality(Item item) {
-		if ((!AGED_BRIE.equals(item.getName()))
-				&& !BACKSTAGE_PASSES.equals(item.getName())) {
-			if (ifQualityIsGreaterThanZero(item)) {
-				if (!SULFURAS.equals(item.getName())) {
-					decrementQualityByOne(item);
-				}
-			}
-		} else {
-			if (ifQualityLesserThanFifty(item)) {
-				incrementQualityByOne(item);
-				if (BACKSTAGE_PASSES.equals(item.getName())) {
-					if (ifSellInLesserThanEleven(item)) {
-						if (ifQualityLesserThanFifty(item)) {
-							incrementQualityByOne(item);
-						}
-					}
-					if (ifSellInLesserThanSix(item)) {
-						if (ifQualityLesserThanFifty(item)) {
-							incrementQualityByOne(item);
-						}
-					}
-				}
-			}
-		}
-		if (!SULFURAS.equals(item.getName())) {
-			decrementSellIn(item);
-		}
+	public static void updateAgedBrieQuality(Item item) {
+		incrementQualityByOne(item);
+		decrementSellIn(item);
 		if (item.getSellIn() < 0) {
-			if (!AGED_BRIE.equals(item.getName())) {
-				if (!BACKSTAGE_PASSES.equals(item.getName())) {
-					if (ifQualityIsGreaterThanZero(item)) {
-						if (!SULFURAS.equals(item.getName())) {
-							decrementQualityByOne(item);
-						}
-					}
-				} else {
-					item.setQuality(0);
-				}
-			} else {
-				if (ifQualityLesserThanFifty(item)) {
-					incrementQualityByOne(item);
-				}
-			}
+			incrementQualityByOne(item);
+		}
+	}
+
+	public static void updateBackstagePassQuality(Item item) {
+		incrementQualityByOne(item);
+		if (ifSellInLesserThanEleven(item)) {
+			incrementQualityByOne(item);
+		}
+		if (ifSellInLesserThanSix(item)) {
+			incrementQualityByOne(item);
+		}
+		decrementSellIn(item);
+		if (item.getSellIn() < 0) {
+			item.setQuality(0);
+		}
+	}
+
+	public static void updateQuality(Item item) {
+		if (AGED_BRIE.equals(item.getName())) {
+			updateAgedBrieQuality(item);
+			return;
+		}
+		if (BACKSTAGE_PASSES.equals(item.getName())) {
+			updateBackstagePassQuality(item);
+			return;
+		}
+		if (SULFURAS.equals(item.getName())) {
+			return;
+		}
+		decrementQualityByOne(item);
+		decrementSellIn(item);
+		if (item.getSellIn() < 0) {
+			decrementQualityByOne(item);
 		}
 	}
 
@@ -94,11 +88,15 @@ public class GildedRose {
 	}
 
 	private static void incrementQualityByOne(Item item) {
-		item.setQuality(item.getQuality() + 1);
+		if (ifQualityLesserThanFifty(item)) {
+			item.setQuality(item.getQuality() + 1);
+		}
 	}
 
 	private static void decrementQualityByOne(Item item) {
-		item.setQuality(item.getQuality() - 1);
+		if (ifQualityIsGreaterThanZero(item)) {
+			item.setQuality(item.getQuality() - 1);
+		}
 	}
 
 }
