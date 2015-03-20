@@ -27,25 +27,13 @@ public class GildedRose {
 	}
 
 	public static void updateAgedBrieQuality(Item item) {
-		incrementQualityByOne(item);
-		decrementSellIn(item);
-		if (item.getSellIn() < 0) {
-			incrementQualityByOne(item);
-		}
+		AgedBrieItem agedBrieItem = new AgedBrieItem(item);
+		agedBrieItem.update();
 	}
 
 	public static void updateBackstagePassQuality(Item item) {
-		incrementQualityByOne(item);
-		if (ifSellInLesserThanEleven(item)) {
-			incrementQualityByOne(item);
-		}
-		if (ifSellInLesserThanSix(item)) {
-			incrementQualityByOne(item);
-		}
-		decrementSellIn(item);
-		if (item.getSellIn() < 0) {
-			item.setQuality(0);
-		}
+		BackstagePassItem bpItem = new BackstagePassItem(item);
+		bpItem.update();
 	}
 
 	public static void updateQuality(Item item) {
@@ -60,43 +48,7 @@ public class GildedRose {
 		if (SULFURAS.equals(item.getName())) {
 			return;
 		}
-		decrementQualityByOne(item);
-		decrementSellIn(item);
-		if (item.getSellIn() < 0) {
-			decrementQualityByOne(item);
-		}
+		ItemWrapper wrappedItem = new ItemWrapper(item);
+		wrappedItem.update();
 	}
-
-	private static void decrementSellIn(Item item) {
-		item.setSellIn(item.getSellIn() - 1);
-	}
-
-	private static boolean ifQualityIsGreaterThanZero(Item item) {
-		return item.getQuality() > 0;
-	}
-
-	private static boolean ifSellInLesserThanSix(Item item) {
-		return item.getSellIn() < 6;
-	}
-
-	private static boolean ifSellInLesserThanEleven(Item item) {
-		return item.getSellIn() < 11;
-	}
-
-	private static boolean ifQualityLesserThanFifty(Item item) {
-		return item.getQuality() < 50;
-	}
-
-	private static void incrementQualityByOne(Item item) {
-		if (ifQualityLesserThanFifty(item)) {
-			item.setQuality(item.getQuality() + 1);
-		}
-	}
-
-	private static void decrementQualityByOne(Item item) {
-		if (ifQualityIsGreaterThanZero(item)) {
-			item.setQuality(item.getQuality() - 1);
-		}
-	}
-
 }
