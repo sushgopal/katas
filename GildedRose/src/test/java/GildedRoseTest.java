@@ -1,67 +1,45 @@
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import model.Item;
+import model.ItemWrapper;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import factory.ItemWrapperFactory;
 
 public class GildedRoseTest {
+	
+	@InjectMocks
+	private GildedRose underTest;
+	
+	@Mock
+	private Item item;
+	
+	@Mock
+	private ItemWrapperFactory itemWrapperFactory;
 
-	@Test
-	public void qualityDecreases() {
-		Item item = new Item(GildedRose.CONJURED_MANA_CAKE, 1, 10);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(9));		
+	@Mock
+	private ItemWrapper wrappedItem;
+	
+	@Before
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+		when(itemWrapperFactory.getWrappedItem(item)).thenReturn(wrappedItem);
 	}
 	
 	@Test
-	public void sellInDecreases() {
-		Item item = new Item(GildedRose.CONJURED_MANA_CAKE, 1, 10);
-		GildedRose.updateQuality(item);
-		assertThat(item.getSellIn(), is(0));
+	public void shouldCreateWrappedItem() {
+		underTest.updateQuality(item);
+		verify(itemWrapperFactory).getWrappedItem(item);
 	}
 	
 	@Test
-	public void qualityDecreasesByTwoForPassedSellIn() {
-		Item item = new Item(GildedRose.CONJURED_MANA_CAKE, 0, 10);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(8));	
+	public void shouldCallUpdateOnWrappedItem() {
+		underTest.updateQuality(item);
+		verify(wrappedItem).update();
 	}
-	
-	@Test
-	public void qualityNotDecreasesByTwoForPassedSellIn() {
-		Item item = new Item(GildedRose.CONJURED_MANA_CAKE, 0, 1);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(0));	
-	}
-	
-	@Test
-	public void qualityIsNotDecreasedWhenZero() {
-		Item item = new Item(GildedRose.CONJURED_MANA_CAKE, 1, 0);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(0));		
-	}
-	
-	@Test
-	public void sulfurasQualityDoesNotDecrease() {
-		Item item = new Item(GildedRose.SULFURAS, -1, 80);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(80));
-	}
-	
-	@Test
-	public void sulfurasSellInDoesNotDecrease() {
-		Item item = new Item(GildedRose.SULFURAS, 0, 80);
-		GildedRose.updateQuality(item);
-		assertThat(item.getSellIn(), is(0));		
-	}
-	
-	@Test
-	public void qualityIsNotIncrementedAboveFifty() {
-		Item item = new Item(GildedRose.AGED_BRIE, 10, 50);
-		GildedRose.updateQuality(item);
-		assertThat(item.getQuality(), is(50));	
-	}
-	
 }
-
-

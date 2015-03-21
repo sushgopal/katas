@@ -1,7 +1,9 @@
+package model;
+
 
 public class ItemWrapper {
 
-	Item item;
+	private final Item item;
 	
 	public ItemWrapper(Item item) {
 		this.item = item;
@@ -13,6 +15,18 @@ public class ItemWrapper {
 		if (pastSellInDate()) {
 			decrementQuality();
 		}
+	}
+	
+	public int getQuality() {
+		return item.getQuality();
+	}	
+	
+	public void setQuality(int quality) {
+		item.setQuality(quality);
+	}
+	
+	public int getSellIn() {
+		return item.getSellIn();
 	}
 
 	boolean pastSellInDate() {
@@ -34,9 +48,5 @@ public class ItemWrapper {
 			item.setQuality(item.getQuality() + 1);
 		}
 	}
-
-	public Item getItem() {
-		return item;
-	}	
 	
 }

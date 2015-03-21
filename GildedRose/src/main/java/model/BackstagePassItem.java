@@ -1,3 +1,5 @@
+package model;
+
 
 public class BackstagePassItem extends ItemWrapper {
 
@@ -16,16 +18,16 @@ public class BackstagePassItem extends ItemWrapper {
 		}
 		decrementSellIn();
 		if (pastSellInDate()) {
-			item.setQuality(0);
+			setQuality(0);
 		}
 	}
 	
 	private boolean sellInLessThanSixDays() {
-		return item.getSellIn() < 6;
+		return getSellIn() < 6;
 	}
 
 	private boolean sellInLessThanElevenDays() {
-		return item.getSellIn() < 11;
+		return getSellIn() < 11;
 	}
 
 }
