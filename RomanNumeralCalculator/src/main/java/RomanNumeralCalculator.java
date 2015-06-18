@@ -1,14 +1,13 @@
 public class RomanNumeralCalculator {
 
-	RomanToArabicNumeralConverter romanToArabicConverter = new RomanToArabicNumeralConverter();
+	RomanToArabicNumeralConverter toArabicConverter = new RomanToArabicNumeralConverter();
 
-	ArabicToRomanNumeralConverter arabicToRomanConverter = new ArabicToRomanNumeralConverter();
+	ArabicToRomanNumeralConverter toRomanConverter = new ArabicToRomanNumeralConverter();
 
-	public String add(String n1, String n2) {
-		int a = romanToArabicConverter.convert(n1);
-		int b = romanToArabicConverter.convert(n2);
-
-		return arabicToRomanConverter.convert(a + b);
+	public String sumOf(String romanNumeral1, String romanNumeral2) {
+		return toRomanConverter.convert(toArabicConverter
+				.convert(romanNumeral1)
+				+ toArabicConverter.convert(romanNumeral2));
 	}
 
 }
