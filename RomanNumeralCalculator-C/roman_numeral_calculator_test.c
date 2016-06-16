@@ -1,11 +1,11 @@
 #include<stdlib.h>
 #include <check.h>
-#include "../src/roman_numeral_calculator.h"
+#include "src/roman_numeral_calculator.h"
 
 START_TEST(should_convert_first_arg_to_arabic)
 {
     char* result = add("I","I");
-    ck_assert(result=="abbc");
+    ck_assert_str_eq(result, "abbc");
     //ck_assert_msg(1==2, "Expected 1 but was %d",2);
 }
 END_TEST
@@ -29,6 +29,5 @@ int main(void) {
     srunner_run_all(sr, CK_NORMAL);
     number_failed = srunner_ntests_failed(sr);
     srunner_free(sr);
-    //return (number_failed == 0) ? 0 : 1;
-    return 0;
+    return (number_failed == 0) ? 0 : 1;
 }

@@ -1,11 +1,17 @@
-tests: roman-numeral-calculator-test
-	./roman-numeral-calculator-test
+LIBS=-lcheck_pic -pthread -lrt -lm -lsubunit
+SRC=src
+TEST=test
+OBJECTS=roman_to_arabic_converter.o arabic_to_roman_converter.o arabic_to_roman_converter_test.o roman_numeral_calculator.o
+GCC_OPTIONS=-Wall -c
 
-roman-numeral-calculator-test: roman_numeral_calculator_test.o roman_numeral_calculator.o
-	gcc -o roman-numeral-calculator-test roman_numeral_calculator.o roman_numeral_calculator_test.o -lcheck_pic -pthread -lrt -lm -lsubunit
+%.o: $(SRC)/%.c $(SRC)/%.h
+	gcc $(GCC_OPTIONS) $<
 
-roman_numeral_calculator_test.o: test/roman_numeral_calculator_test.c src/roman_numeral_calculator.h
-	gcc -Wall -c test/roman_numeral_calculator_test.c
+tests: roman-numeral-calculator
+	./roman-numeral-calculator
 
-roman_numeral_calculator.o: src/roman_numeral_calculator.c src/roman_numeral_calculator.h
-	gcc -Wall -c src/roman_numeral_calculator.c
+roman-numeral-calculator: $(OBJECTS)
+	gcc -o $@ $^ $(LIBS)
+
+clean: $(OBJECTS)
+	rm *.o
