@@ -4,8 +4,8 @@
 char* convert_to_roman(int arabic);
 
 typedef struct ARABIC_TO_ROMAN {
-   int    number;
-   char*  roman;
+  int    number;
+  char*  roman;
 } arabic_to_roman;
 
 static const arabic_to_roman _1000_M = {1000, "M"};

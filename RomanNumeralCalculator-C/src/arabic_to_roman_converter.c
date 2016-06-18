@@ -5,21 +5,17 @@
 
 int ARABIC_TO_ROMAN_MAP_SIZE = 13;
 
-bool is_zero(int n) {
-  return n == 0;
-}
+bool is_zero(int n);
+bool is_greater_than_equal_to(int x, int y);
+void add_roman_character_to_result(char* result, char* roman_character);
+void decrement_current_number(int *current_number, int decrement_by);
+char* convert(int current_number, char* result, arabic_to_roman* map);
 
-bool is_greater_than_equal_to(int x, int y) {
-  return x >= y;
-}
-
-void add_roman_character_to_result(char* result, char* roman_character) {
-  strcat(result, roman_character);
-}
- 
-void decrement_current_number(int *current_number, int decrement_by) {
-  *current_number-=decrement_by;
-}
+char* convert_to_roman(int arabic) {
+  char *roman = (char *) malloc(20);
+  arabic_to_roman map[13]  = {_1000_M, _900_CM, _500_D, _400_CD, _100_C, _90_XC, _50_L, _40_XL, _10_X, _9_IX, _5_V, _4_IV, _1_I};
+  return convert(arabic, roman, map);
+}			
 
 char* convert(int current_number, char* result, arabic_to_roman* map) {     
   if(is_zero(current_number)) {
@@ -42,8 +38,19 @@ char* convert(int current_number, char* result, arabic_to_roman* map) {
   return "Error occurred during arabic to roman numeral conversion!";
 }
 
-char* convert_to_roman(int arabic) {
-  char *roman = (char *) malloc(20);
-  arabic_to_roman map[13]  = {_1000_M, _900_CM, _500_D, _400_CD, _100_C, _90_XC, _50_L, _40_XL, _10_X, _9_IX, _5_V, _4_IV, _1_I};
-  return convert(arabic, roman, map);
-}			
+bool is_zero(int n) {
+  return n == 0;
+}
+
+bool is_greater_than_equal_to(int x, int y) {
+  return x >= y;
+}
+
+void add_roman_character_to_result(char* result, char* roman_character) {
+  strcat(result, roman_character);
+}
+ 
+void decrement_current_number(int *current_number, int decrement_by) {
+  *current_number-=decrement_by;
+}
+

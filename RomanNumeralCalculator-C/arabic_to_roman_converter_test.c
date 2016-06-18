@@ -42,7 +42,7 @@ START_TEST(_999_to_CMXCIX) {
 }
 END_TEST
 
-Suite* get_test_suite(void) {
+Suite* make_arabic_to_roman_converter_test_suite(void) {
     Suite *test_suite = suite_create("Arabic to Roman Numeral Converter");
     TCase *test_cases = tcase_create("should convert");
 
@@ -62,7 +62,7 @@ Suite* get_test_suite(void) {
 int main(void) {
     int number_failed;
 
-    Suite *test_suite = get_test_suite();
+    Suite *test_suite = make_arabic_to_roman_converter_test_suite();
     SRunner *sr = srunner_create(test_suite);
 
     srunner_run_all(sr, CK_NORMAL);
