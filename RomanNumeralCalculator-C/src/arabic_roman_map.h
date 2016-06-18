@@ -4,18 +4,8 @@
     int    number;
     char*  roman;
   } arabic_to_roman_map;
+  
+  static const int ARABIC_TO_ROMAN_MAP_SIZE = 13;
 
-  static const arabic_to_roman_map _1000_M = {1000, "M"};
-  static const arabic_to_roman_map _900_CM = {900, "CM"};
-  static const arabic_to_roman_map _500_D  = {500, "D"};
-  static const arabic_to_roman_map _400_CD = {400, "CD"};
-  static const arabic_to_roman_map _100_C  = {100, "C"};
-  static const arabic_to_roman_map _90_XC  = {90, "XC"};
-  static const arabic_to_roman_map _50_L   = {50, "L"};
-  static const arabic_to_roman_map _40_XL  = {40, "XL"};
-  static const arabic_to_roman_map _10_X   = {10, "X"};
-  static const arabic_to_roman_map _9_IX   = {9, "IX"};
-  static const arabic_to_roman_map _5_V    = {5, "V"};
-  static const arabic_to_roman_map _4_IV   = {4, "IV"};
-  static const arabic_to_roman_map _1_I    = {1, "I"};
+  static arabic_to_roman_map map[13]  = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}};
 #endif
