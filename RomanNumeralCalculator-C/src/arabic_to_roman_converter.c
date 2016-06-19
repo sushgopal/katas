@@ -8,14 +8,14 @@ bool is_zero(int n);
 bool is_greater_than_equal_to(int x, int y);
 void add_roman_character_to_result(char* result, char* roman_character);
 void decrement_current_number(int *current_number, int decrement_by);
-char* convert(int current_number, char* result, arabic_to_roman_map* map);
+char* convert(int current_number, char* result);
 
 char* convert_to_roman(int arabic) {
-  char *roman = (char *) malloc(20);
-  return convert(arabic, roman, map);
+  char *roman = (char *) calloc(10, 1);
+  return convert(arabic, roman);
 }			
 
-char* convert(int current_number, char* result, arabic_to_roman_map* map) {     
+char* convert(int current_number, char* result) {     
   if(is_zero(current_number)) {
     return result;
   }
@@ -28,7 +28,7 @@ char* convert(int current_number, char* result, arabic_to_roman_map* map) {
       add_roman_character_to_result(result, map[counter].roman);
       decrement_current_number(&current_number, map[counter].number);
 
-      return convert(current_number, result, map);
+      return convert(current_number, result);
     }
 
   }

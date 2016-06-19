@@ -7,5 +7,17 @@
   
   static const int ARABIC_TO_ROMAN_MAP_SIZE = 13;
 
-  static arabic_to_roman_map map[13]  = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}};
+  static arabic_to_roman_map map[13]  = {{1000, "M"}, 
+    					 {900, "CM"}, 
+					 {500, "D"},
+					 {400, "CD"},
+					 {100, "C"},
+					 {90, "XC"},
+					 {50, "L"},
+					 {40, "XL"},
+					 {10, "X"},
+					 {9, "IX"},
+					 {5, "V"},
+					 {4, "IV"},
+					 {1, "I"}};
 #endif
