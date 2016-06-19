@@ -1,22 +1,20 @@
 LIBS=-lcheck_pic -pthread -lrt -lm -lsubunit
+GCC_OPTIONS=-Wall -c
 SRC=src
 TEST=test
-OBJ1=roman_to_arabic_converter.o roman_to_arabic_converter_test.o
-OBJ2=arabic_to_roman_converter.o arabic_to_roman_converter_test.o
-OBJ3=roman_numeral_calculator.o roman_numeral_calculator_test.o
-OBJ4=tests_runner.o
-OBJ5=arabic_roman_map.h
+OBJECTS=roman_to_arabic_converter.o roman_to_arabic_converter_test.o \
+        arabic_to_roman_converter.o arabic_to_roman_converter_test.o \
+        roman_numeral_calculator.o roman_numeral_calculator_test.o \
+        tests_runner.o
 
-GCC_OPTIONS=-Wall -c
-
-%.o: $(SRC)/%.c $(SRC)/%.h $(SRC)/$(OBJ5)
+%.o: $(SRC)/%.c $(SRC)/%.h $(SRC)/arabic_roman_map.h
 	gcc $(GCC_OPTIONS) $<
 
 tests: run-tests
 	./run-tests
 
-run-tests: $(OBJ1) $(OBJ2) $(OBJ3) $(OBJ4)
+run-tests: $(OBJECTS)
 	gcc -o $@ $^ $(LIBS)
 
-clean: $(OBJECTS)
-	rm *.o
+clean:
+	rm $(OBJECTS) run-tests
