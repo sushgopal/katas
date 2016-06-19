@@ -11,7 +11,7 @@ void decrement_current_number(int *current_number, int decrement_by);
 char* convert(int current_number, char* result);
 
 char* convert_to_roman(int arabic) {
-  char *roman = (char *) calloc(10, 1);
+  char *roman = (char *) calloc(10, sizeof(char));
   return convert(arabic, roman);
 }			
 

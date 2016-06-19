@@ -61,7 +61,7 @@ void remove_from_end(char** to_remove_from, char* to_remove) {
 
 char* substring(char* source, int length) {
   int i;
-  char* result = (char*) malloc(strlen(source));
+  char* result = (char*) calloc(strlen(source), sizeof(char));
   
   for(i=0; i<length; i++) {
     result[i] = source[i];
