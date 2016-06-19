@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <check.h>
 #include "roman_to_arabic_converter_test.h"
-#include "src/roman_to_arabic_converter.h"
+#include "../src/roman_to_arabic_converter.h"
 
 void convert_to_arabic_and_assert(char* roman, int expected) {
   int actual = convert_to_arabic(roman);

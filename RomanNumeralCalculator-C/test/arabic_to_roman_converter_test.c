@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <check.h>
 #include "arabic_to_roman_converter_test.h"
-#include "src/arabic_to_roman_converter.h"
+#include "../src/arabic_to_roman_converter.h"
 
 void convert_to_roman_and_assert(int input, char* expected) {
   char* actual = convert_to_roman(input);
@@ -56,6 +56,7 @@ Suite* make_arabic_to_roman_converter_test_suite() {
     tcase_add_test(test_cases, _3_to_III); 
     tcase_add_test(test_cases, _4_to_IV);
     tcase_add_test(test_cases, _5_to_V);
+    tcase_add_test(test_cases, _9_to_IX);
     tcase_add_test(test_cases, _10_to_X);
     tcase_add_test(test_cases, _45_to_XLV);
     tcase_add_test(test_cases, _999_to_CMXCIX);	

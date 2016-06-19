@@ -1,34 +1,38 @@
-#include<stdlib.h>
+#include <stdlib.h>
 #include <check.h>
 #include "../src/roman_numeral_calculator.h"
+#include "roman_numeral_calculator_test.h"
 
-START_TEST(should_convert_first_arg_to_arabic)
-{
-    char* result = add("I","I");
-    ck_assert(result=="abbc");
-    //ck_assert_msg(1==2, "Expected 1 but was %d",2);
+START_TEST(add_two_arabic_numerals){
+  char* result = add("C","LXII");
+  ck_assert_str_eq(result, "CLXII");
+  free(result);
 }
 END_TEST
 
-Suite* get_test_suite(void) {
-    Suite *test_suite = suite_create("Roman Numeral Calculator");
-    TCase *test_cases = tcase_create("Adding Roman Numerals");
-
-    tcase_add_test(test_cases, should_convert_first_arg_to_arabic);
-    suite_add_tcase(test_suite, test_cases);
-
-    return test_suite;
+START_TEST(subtract_two_arabic_numerals) {
+  char* result = subtract("XLIII", "XVII");
+  ck_assert_str_eq(result, "XXVI");
+  free(result);
 }
+END_TEST
 
-int main(void) {
-    int number_failed;
+START_TEST(subtract_two_arabic_numerals_irrespective_of_order) {
+  char* result = subtract("II","IX");
+  ck_assert_str_eq(result, "VII");
+  free(result);
+}
+END_TEST
 
-    Suite *test_suite = get_test_suite();
-    SRunner *sr = srunner_create(test_suite);
+Suite* make_roman_numeral_calculator_test_suite() {
+  Suite *test_suite = suite_create("Roman Numeral Calculator");
+  TCase *test_cases = tcase_create("should");
 
-    srunner_run_all(sr, CK_NORMAL);
-    number_failed = srunner_ntests_failed(sr);
-    srunner_free(sr);
-    //return (number_failed == 0) ? 0 : 1;
-    return 0;
+  tcase_add_test(test_cases, add_two_arabic_numerals);
+  tcase_add_test(test_cases, subtract_two_arabic_numerals);
+  tcase_add_test(test_cases, subtract_two_arabic_numerals_irrespective_of_order);
+
+  suite_add_tcase(test_suite, test_cases);
+
+  return test_suite;
 }
