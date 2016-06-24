@@ -4,18 +4,18 @@
 #include "arabic_to_roman_converter.h"
 #include "arabic_roman_map.h"
 
-bool is_zero(int n);
-bool is_greater_than_equal_to(int x, int y);
-void add_roman_character_to_result(char* result, char* roman_character);
-void decrement_current_number(int *current_number, int decrement_by);
-char* convert(int current_number, char* result);
+static bool is_zero(int n);
+static bool is_greater_than_equal_to(int x, int y);
+static void add_roman_character_to_result(char* result, char* roman_character);
+static void decrement_current_number(int *current_number, int decrement_by);
+static char* convert(int current_number, char* result);
 
 char* convert_to_roman(int arabic) {
   char *roman = (char *) calloc(10, sizeof(char));
   return convert(arabic, roman);
 }			
 
-char* convert(int current_number, char* result) {     
+static char* convert(int current_number, char* result) {     
   if(is_zero(current_number)) {
     return result;
   }
@@ -36,19 +36,19 @@ char* convert(int current_number, char* result) {
   return "Error occurred during arabic to roman numeral conversion!";
 }
 
-bool is_zero(int n) {
+static bool is_zero(int n) {
   return n == 0;
 }
 
-bool is_greater_than_equal_to(int x, int y) {
+static bool is_greater_than_equal_to(int x, int y) {
   return x >= y;
 }
 
-void add_roman_character_to_result(char* result, char* roman_character) {
+static void add_roman_character_to_result(char* result, char* roman_character) {
   strcat(result, roman_character);
 }
  
-void decrement_current_number(int *current_number, int decrement_by) {
+static void decrement_current_number(int *current_number, int decrement_by) {
   *current_number-=decrement_by;
 }
 

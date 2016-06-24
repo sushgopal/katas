@@ -3,7 +3,7 @@
 #include "arabic_to_roman_converter_test.h"
 #include "../src/arabic_to_roman_converter.h"
 
-void convert_to_roman_and_assert(int input, char* expected) {
+static void convert_to_roman_and_assert(int input, char* expected) {
   char* actual = convert_to_roman(input);
   ck_assert_str_eq(actual, expected);
 }

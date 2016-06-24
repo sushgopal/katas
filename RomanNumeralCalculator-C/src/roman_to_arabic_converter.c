@@ -4,10 +4,10 @@
 #include "arabic_to_roman_converter.h"
 #include "arabic_roman_map.h"
 
-bool is_empty(char* string);
-bool string_ends_with(char* main, char* substring);
-void remove_from_end(char** to_remove_from, char* to_remove);
-char* substring(char* src, int length);
+static bool is_empty(char* string);
+static bool string_ends_with(char* main, char* substring);
+static void remove_from_end(char** to_remove_from, char* to_remove);
+static char* substring(char* src, int length);
 
 int convert_to_arabic(char* roman) {
   int result = 0;
@@ -26,11 +26,11 @@ int convert_to_arabic(char* roman) {
   return result;
 }
 
-bool is_empty(char* string) {
+static bool is_empty(char* string) {
   return strlen(string) == 0;
 }
 
-bool string_ends_with(char* main, char* substring) {
+static bool string_ends_with(char* main, char* substring) {
   int main_length = strlen(main);
   int substring_length = strlen(substring);
   
@@ -51,7 +51,7 @@ bool string_ends_with(char* main, char* substring) {
   return true;
 }
 
-void remove_from_end(char** to_remove_from, char* to_remove) {
+static void remove_from_end(char** to_remove_from, char* to_remove) {
   int length_to_remove = strlen(to_remove);
   int length_of_result = strlen(*to_remove_from) - length_to_remove;  
 
@@ -59,7 +59,7 @@ void remove_from_end(char** to_remove_from, char* to_remove) {
   *to_remove_from = result;
 }
 
-char* substring(char* source, int length) {
+static char* substring(char* source, int length) {
   int i;
   char* result = (char*) calloc(strlen(source), sizeof(char));
   
