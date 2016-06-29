@@ -9,42 +9,52 @@ static void convert_to_arabic_and_assert(char* roman, int expected) {
 }
 
 START_TEST(_I_to_1) {  
-   convert_to_arabic_and_assert("I", 1);
+  convert_to_arabic_and_assert("I", 1);
 }
 END_TEST
 
 START_TEST(_III_to_3) {
-   convert_to_arabic_and_assert("III", 3);
+  convert_to_arabic_and_assert("III", 3);
 }
 END_TEST
 
 START_TEST(_IV_to_4) {
-   convert_to_arabic_and_assert("IV", 4);
+  convert_to_arabic_and_assert("IV", 4);
 }
 END_TEST
 
 START_TEST(_V_to_5) {
-   convert_to_arabic_and_assert("V", 5);
+  convert_to_arabic_and_assert("V", 5);
 }
 END_TEST
 
 START_TEST(_IX_to_9) {
-   convert_to_arabic_and_assert("IX", 9);
+  convert_to_arabic_and_assert("IX", 9);
 }
 END_TEST
 
 START_TEST(_X_to_10) {
-   convert_to_arabic_and_assert("X", 10);
+  convert_to_arabic_and_assert("X", 10);
 }
 END_TEST
 
 START_TEST(_XLV_to_45) {
-   convert_to_arabic_and_assert("XLV", 45);
+  convert_to_arabic_and_assert("XLV", 45);
 }
 END_TEST
 
 START_TEST(_CMXCIX_to_999) {
-   convert_to_arabic_and_assert("CMXCIX", 999);
+  convert_to_arabic_and_assert("CMXCIX", 999);
+}
+END_TEST
+
+START_TEST(_cmxcix_to_999) {
+  convert_to_arabic_and_assert("cmxcix", 999);
+}
+END_TEST
+
+START_TEST(non_roman_numerals_to_zero) {
+  convert_to_arabic_and_assert("abe", 0);
 }
 END_TEST
 
@@ -60,6 +70,8 @@ Suite* make_roman_to_arabic_converter_test_suite(void) {
   tcase_add_test(test_cases, _X_to_10);
   tcase_add_test(test_cases, _XLV_to_45);
   tcase_add_test(test_cases, _CMXCIX_to_999);	
+  tcase_add_test(test_cases, _cmxcix_to_999);
+//  tcase_add_test(test_cases, non_roman_numerals_to_zero);
 
   suite_add_tcase(test_suite, test_cases);
 
