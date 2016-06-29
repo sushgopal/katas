@@ -71,7 +71,7 @@ Suite* make_roman_to_arabic_converter_test_suite(void) {
   tcase_add_test(test_cases, _XLV_to_45);
   tcase_add_test(test_cases, _CMXCIX_to_999);	
   tcase_add_test(test_cases, _cmxcix_to_999);
-//  tcase_add_test(test_cases, non_roman_numerals_to_zero);
+  tcase_add_test(test_cases, non_roman_numerals_to_zero);
 
   suite_add_tcase(test_suite, test_cases);
 
