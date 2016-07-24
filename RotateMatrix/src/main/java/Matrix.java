@@ -1,3 +1,4 @@
+import static java.lang.Math.ceil;
 import static java.util.stream.IntStream.range;
 
 import java.util.function.IntConsumer;
@@ -22,10 +23,14 @@ public class Matrix {
 		return rows() == columns();
 	}
 
-	private int getLevels(int[][] matrix) {
-		return (int) Math.ceil((double) matrix.length / 2);
+	private int rows() {
+		return input.length;
 	}
-
+	
+	private int columns() {
+		return input[0].length;
+	}
+	
 	private int[][] rotateMatrix() {
 		int[][] result = new int[rows()][columns()];
 		range(0, getLevels(input)).forEach(new IntConsumer() {
@@ -37,56 +42,70 @@ public class Matrix {
 		return result;
 	}
 	
-	private boolean isOddMatrixSize() {
-		return rows() % 2 != 0;
+	private int getLevels(int[][] matrix) {
+		return (int) ceil((double) rows() / 2);
 	}
 	
 	void rotateAtLevel(int[][] result, int level) {
-		if((level == getLevels(input)-1) && isOddMatrixSize()) {
+		if(isLastLevel(level) && isOddMatrixSize()) {
 			result[level][level] = input[level][level];
 			return;
 		}
 		
-		int lastColumnForLevel = getLastColumnForLevel(level);
-		int lastRowForLevel = getLastRowForLevel(level);
+		shiftFirstRowAtLevel(result, level);
+		shiftLastColumnAtLevel(result, level);
+		shiftLastRowAtLevel(result, level);
+		shiftFirstColumnAtLevel(result, level);
+	}
 
-		range(level, lastColumnForLevel).forEach(new IntConsumer() {
+	private boolean isLastLevel(int level) {
+		return level == getLevels(input)-1;
+	}
+
+	private boolean isOddMatrixSize() {
+		return rows() % 2 != 0;
+	}
+	
+	private void shiftFirstRowAtLevel(int[][] result, int level) {
+		range(level, getLastColumnForLevel(level)).forEach(new IntConsumer() {
 			@Override
 			public void accept(int column) {
 				result[level][column+1] = input[level][column];
 			}
 		});
-		
-		range(level, lastRowForLevel).forEach(new IntConsumer() {
+	}
+	
+	private void shiftLastColumnAtLevel(int[][] result, int level) {
+		int lastColumnForLevel = getLastColumnForLevel(level);
+
+		range(level, getLastRowForLevel(level)).forEach(new IntConsumer() {
 			@Override
 			public void accept(int row) {
 				result[row+1][lastColumnForLevel] = input[row][lastColumnForLevel];
 			}
 		});
-		
-		for(int i=lastColumnForLevel; i>level; i--) {
-			result[lastRowForLevel][i-1] = input[lastRowForLevel][i];
-		}
-		
-		for(int i=lastRowForLevel; i>level; i--) {
-			result[i-1][level] = input[i][level];
-		}
-//		range(level, columns-(level+1)).map(column -> columns - column - 1)
-//									.forEach(new IntConsumer() {
-//										@Override
-//										public void accept(int column) {
-//											
-//										}
-//									});
-//		
-//		range(level, rows-(level + 1)).map(row -> rows - row - 1)
-//								.forEach(new IntConsumer() {
-//									@Override
-//									public void accept(int row) {
-//										
-//									}
-//								});
-		
+	}
+
+	private void shiftLastRowAtLevel(int[][] result, int level) {
+		int lastRowForLevel = getLastRowForLevel(level);
+
+		range(level, getLastColumnForLevel(level)).map(column -> columns() - (column + 1))
+												.forEach(new IntConsumer() {
+													@Override
+													public void accept(int column) {
+														result[lastRowForLevel][column-1] = input[lastRowForLevel][column];
+													}
+												});
+	}
+
+	private void shiftFirstColumnAtLevel(int[][] result, int level) {
+		range(level, getLastRowForLevel(level)).map(row -> rows() - (row + 1))
+												.forEach(new IntConsumer() {
+													@Override
+													public void accept(int row) {
+														result[row-1][level] = input[row][level];
+													}
+												});
 	}
 
 	private int getLastRowForLevel(int level) {
@@ -95,14 +114,6 @@ public class Matrix {
 
 	private int getLastColumnForLevel(int level) {
 		return columns()-(level + 1);
-	}
-
-	private int rows() {
-		return input.length;
-	}
-	
-	private int columns() {
-		return input[0].length;
 	}
 	
 }
