@@ -1,0 +1,12 @@
+build/
+bin/
+.metadata/
+.gradle/
+.DS_Store
+.project
+.settings/
+.classpath
+gradle/
+RemoteSystemsTempFiles/
+gradlew
+gradlew.bat
