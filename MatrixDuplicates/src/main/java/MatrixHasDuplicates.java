@@ -1,46 +1,59 @@
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static java.lang.Math.abs;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-
 
 public class MatrixHasDuplicates {
 
 	private int[][] input;
-	
-	private Map<Integer, ArrayList<Position>> map = newHashMap();
+
+	private Map<Integer, List<Position>> duplicatePositions = newHashMap();
 
 	public MatrixHasDuplicates(int[][] input) {
 		this.input = input;
 	}
 
 	public boolean withinDistance(int k) {
-		for(int i=0;i<input.length;i++) {
-			for(int j=0;j<input[0].length;j++) {
-				if(map.containsKey(input[i][j])) {
-					if(isWithinKDistance(i, j, map.get(input[i][j]), k)) {
-						return true;
-					} else {
-						map.get(input[i][j]).add(new Position(i, j));
-						map.put(input[i][j], map.get(input[i][j]));
-					}
-				} else {
-					map.put(input[i][j], newArrayList(new Position(i, j)));
+
+		for (int row = 0; row < rows(); row++) {
+			for (int column = 0; column < columns(); column++) {
+				if (numberAlreadyExists(row, column) && isWithinKDistanceFromDuplicates(row, column, k)) {
+					return true;
 				}
+
+				addToMap(row, column);
 			}
 		}
 		return false;
+
+	}
+	
+	private int rows() {
+		return input.length;
+	}
+	
+	private int columns() {
+		return input[0].length;
+	}
+	
+	private boolean numberAlreadyExists(int i, int j) {
+		return duplicatePositions.containsKey(input[i][j]);
+	}
+	
+	private boolean isWithinKDistanceFromDuplicates(int row, int column, int k) {
+		return new Position(row, column).isAnyWithinKDistance(duplicatePositions.get(input[row][column]), k);
 	}
 
-	private boolean isWithinKDistance(int row, int column, ArrayList<Position> arrayList, int k) {
-		for(Position p: arrayList) {
-			if((abs(row-p.row())+abs(column-p.column())) <= k) {
-				return true;
-			}
+	private void addToMap(int row, int column) {
+		List<Position> duplicates = duplicatePositions.get(input[row][column]);
+		
+		if(duplicates == null) {
+			duplicates = newArrayList();
 		}
-		return false;
+		
+		duplicates.add(new Position(row, column));
+		duplicatePositions.put(input[row][column], duplicates);
 	}
 
 }

@@ -1,8 +1,7 @@
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
 
 public class MatrixHasDuplicatesTest {
 	MatrixHasDuplicates matrixHasDuplicates;
@@ -11,27 +10,27 @@ public class MatrixHasDuplicatesTest {
 	public void shouldReturnFalseIfMatrixHasNoDuplicates() {
 		matrixHasDuplicates = new MatrixHasDuplicates(new int[][]{{1, 2},{3, 4}});
 		
-		assertThat(matrixHasDuplicates.withinDistance(1), is(false));
+		assertFalse(matrixHasDuplicates.withinDistance(1));
 	}
 	
 	@Test
 	public void shouldReturnTrueIfMatrixHasDuplicates() {
 		matrixHasDuplicates = new MatrixHasDuplicates(new int[][]{{1, 2},{3, 2}});
 		
-		assertThat(matrixHasDuplicates.withinDistance(2), is(true));
+		assertTrue(matrixHasDuplicates.withinDistance(2));
 	}
 	
 	@Test
 	public void shouldReturnFalseIfDuplicatesAreNotWithinKDistance() {
 		matrixHasDuplicates = new MatrixHasDuplicates(new int[][]{{1, 2},{3, 4}, {2, 5}});
 		
-		assertThat(matrixHasDuplicates.withinDistance(2), is(false));
+		assertFalse(matrixHasDuplicates.withinDistance(2));
 	}
 	
 	@Test
 	public void shouldReturnTrueIfAnyOfTheDuplicatesAreWithinKDistance() {
 		matrixHasDuplicates = new MatrixHasDuplicates(new int[][]{{1, 2, 3},{4, 5, 1}, {1, 8, 9}});
 		
-		assertThat(matrixHasDuplicates.withinDistance(2), is(true));
+		assertTrue(matrixHasDuplicates.withinDistance(2));
 	}
 }
